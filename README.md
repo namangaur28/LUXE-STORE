@@ -84,8 +84,8 @@ src/
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/itsdeepak-code/LUXE-STORE-CLASS-PROJECT-.git
-cd LUXE-STORE-CLASS-PROJECT-
+git clone https://github.com/namangaur28/LUXE-STORE.git
+cd LUXE-STORE
 npm install
 ```
 
