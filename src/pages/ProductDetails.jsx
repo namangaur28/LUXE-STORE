@@ -11,7 +11,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const { product, loading, error } = useProduct(id);
   const { products } = useProducts();
-  const { addToCart, toggleWishlist, wishlist, updateQuantity, cart } = useApp();
+  const { addToCart, addToCartWithQty, toggleWishlist, wishlist } = useApp();
   
   const [qty, setQty] = useState(1);
   const isWishlisted = wishlist.some((item) => item.id === product?.id);
@@ -62,9 +62,7 @@ const ProductDetails = () => {
 
             <button 
               className="details-add-btn bg-gradient-primary"
-              onClick={() => {
-                for(let i=0; i<qty; i++) addToCart(product);
-              }}
+              onClick={() => addToCartWithQty(product, qty)}
             >
               <FiShoppingCart /> Add to Cart
             </button>

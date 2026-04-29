@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useProducts } from '../hooks/useProducts';
 import { useDebounce } from '../hooks/useDebounce';
 import ProductCard from '../components/product/ProductCard';
+import SkeletonCard from '../components/common/SkeletonCard';
 import { FiFilter, FiSearch, FiChevronDown } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/Product.css';
@@ -53,7 +54,14 @@ const Products = () => {
     return result;
   }, [products, selectedCategory, debouncedSearch, sortBy, priceRange]);
 
-  if (loading) return <div className="container loader-container"><div className="loader"></div></div>;
+  if (loading) return (
+    <div className="products-page page-transition">
+      <div className="products-header"><h1>Explore Products</h1></div>
+      <div className="product-grid">
+        {[1, 2, 3, 4, 5, 6, 7, 8].map(i => <SkeletonCard key={i} />)}
+      </div>
+    </div>
+  );
 
   return (
     <div className="products-page page-transition">

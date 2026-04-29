@@ -1,55 +1,122 @@
-# Luxe Store - Premium E-Commerce Platform
+# 🛍️ Luxe Store — Premium E-Commerce Platform
 
-A modern, responsive e-commerce React application featuring global cart/wishlist management, dynamic product exploration, and a seamless checkout experience with form validation and dynamic animations.
+A modern React e-commerce app with cart management, wishlist, order tracking, user authentication, and **real-time email notifications** — all powered by localStorage (no backend needed).
 
-## 🚀 Features
+## ✨ Key Features
 
-- **Global State Management:** Seamlessly handles cart and wishlist data across the app using Context API.
-- **Dynamic Routing:** Integrated `react-router-dom` for exploring products and viewing individual product details.
-- **Polished UI/UX:** Features modern design patterns, seamless `framer-motion` animations, and `react-toastify` for real-time order and cart notifications.
-- **Secure Checkout:** Integrates `react-hook-form` and `yup` for reliable and validated billing address checkout flows.
-- **Responsive Layout:** Carefully designed layout to look great on desktop and mobile platforms.
+- **Cart & Wishlist** — Add, remove, update quantities. Data persists in localStorage
+- **User Authentication** — Sign up / Login with localStorage. No backend required
+- **Order Management** — Place orders, view full order history at `/orders`
+- **📧 Email Notifications** — Get notified on your email when:
+  - A user signs up or logs in (name, email, timestamp)
+  - An order is placed (items, total, shipping address)
+- **Product Filtering** — Search, category tabs, price range slider, sorting
+- **Dark Mode** — Toggle between light and dark themes
+- **Smooth Animations** — Framer Motion page transitions and hover effects
+- **Form Validation** — Checkout form validated with React Hook Form + Yup
+- **Responsive Design** — Works on mobile, tablet, and desktop
 
-## 🛠️ Built With
+## 📧 How Email Notifications Work
 
-- [React 19](https://react.dev/)
-- [Vite](https://vitejs.dev/)
-- [React Router DOM](https://reactrouter.com/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [React Hook Form](https://react-hook-form.com/) & [Yup](https://github.com/jquense/yup)
-- [Axios](https://axios-http.com/)
-- [Swiper](https://swiperjs.com/)
-- [React Toastify](https://fkhadra.github.io/react-toastify/)
+This project uses [Web3Forms](https://web3forms.com) to send email alerts directly from the browser — **no backend server needed**.
 
-## 💻 Getting Started
+```
+User signs up / logs in / places order
+        ↓
+Frontend calls Web3Forms API (fetch POST)
+        ↓
+Web3Forms sends email to the owner
+        ↓
+Owner receives notification with user details
+```
 
-To get a local copy up and running, simply follow these steps.
+**What you receive:**
 
-### Prerequisites
+| Event | Email Contains |
+|-------|---------------|
+| Login / Signup | User name, email, timestamp |
+| Order Placed | Order ID, item list, total price, shipping address |
 
-Make sure you have Node.js and npm installed.
+**Setup:** Just get a free access key from [web3forms.com](https://web3forms.com), add it to `.env`, and it works.
 
-### Installation
+## 🏗️ Project Structure
 
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/itsdeepak-code/LUXE-STORE-CLASS-PROJECT-.git
-   ```
-2. Navigate to the project directory:
-   ```sh
-   cd LUXE-STORE-CLASS-PROJECT-
-   ```
-3. Install NPM packages:
-   ```sh
-   npm install
-   ```
-4. Start the development server:
-   ```sh
-   npm run dev
-   ```
+```
+src/
+├── components/          # Reusable UI components
+│   ├── common/          # Navbar, Footer, ErrorBoundary, SkeletonCard
+│   └── product/         # ProductCard
+├── context/             # Global state management (Context API)
+│   └── AppContext.jsx   # Cart, Wishlist, Orders, Auth, Theme
+├── hooks/               # Custom React hooks
+│   ├── useProducts.js   # Fetch products from API
+│   └── useDebounce.js   # Debounced search input
+├── pages/               # Route pages
+│   ├── Home.jsx
+│   ├── Products.jsx
+│   ├── ProductDetails.jsx
+│   ├── Cart.jsx
+│   ├── Checkout.jsx
+│   ├── Orders.jsx       # Order history
+│   ├── Wishlist.jsx
+│   └── Login.jsx        # Auth page
+├── services/
+│   ├── api.js           # Axios instance for FakeStore API
+│   └── email.js         # Web3Forms email notifications
+└── styles/              # CSS files per component
+```
 
-## 📸 Screenshots
-*(Feel free to add your own screenshot assets here!)*
+## 🛠️ Tech Stack
 
----
-Developed as a premium e-commerce application.
+| Area | Technology |
+|------|-----------|
+| Framework | React 19 + Vite |
+| Routing | React Router v7 |
+| State | Context API + localStorage |
+| Forms | React Hook Form + Yup |
+| Animations | Framer Motion |
+| HTTP | Axios |
+| Email | Web3Forms API |
+| Styling | Vanilla CSS + CSS Variables |
+
+## 🚀 Getting Started
+
+### 1. Clone and install
+
+```bash
+git clone https://github.com/itsdeepak-code/LUXE-STORE-CLASS-PROJECT-.git
+cd LUXE-STORE-CLASS-PROJECT-
+npm install
+```
+
+### 2. Set up email notifications
+
+1. Go to [web3forms.com](https://web3forms.com) and enter your email
+2. Copy the access key from your inbox
+3. Create a `.env` file in the root:
+
+```env
+VITE_API_URL=https://fakestoreapi.com
+VITE_WEB3FORMS_KEY=your_access_key_here
+```
+
+### 3. Run the app
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173)
+
+## 📚 What I Learned
+
+- Managing global state with Context API (auth, cart, orders, theme)
+- Building custom hooks for data fetching and debouncing
+- Sending browser-side email notifications without a backend
+- Form validation with Yup schemas
+- CSS architecture with design tokens and dark mode
+- Error boundaries for production-ready React apps
+
+## 📄 License
+
+MIT

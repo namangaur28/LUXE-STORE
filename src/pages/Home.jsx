@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useProducts } from '../hooks/useProducts';
 import ProductCard from '../components/product/ProductCard';
+import SkeletonCard from '../components/common/SkeletonCard';
 import { FiArrowRight, FiTruck, FiShield, FiRotateCcw } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import '../styles/Home.css';
@@ -87,7 +88,9 @@ const Home = () => {
         </div>
 
         {loading ? (
-          <div className="loader">Loading featured products...</div>
+          <div className="product-grid">
+            {[1, 2, 3, 4].map(i => <SkeletonCard key={i} />)}
+          </div>
         ) : (
           <div className="product-grid">
             {featuredProducts.map((product) => (

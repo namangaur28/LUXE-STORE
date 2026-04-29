@@ -18,8 +18,9 @@ const schema = yup.object().shape({
 });
 
 const Checkout = () => {
-  const { cart, cartTotal, clearCart } = useApp();
+  const { cart, cartTotal, placeOrder } = useApp();
   const [isOrdered, setIsOrdered] = useState(false);
+  const [orderId, setOrderId] = useState('');
   const navigate = useNavigate();
   
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -27,11 +28,9 @@ const Checkout = () => {
   });
 
   const onSubmit = (data) => {
-    console.log('Order Data:', data);
+    const order = placeOrder(data);
+    setOrderId(order.id);
     setIsOrdered(true);
-    setTimeout(() => {
-      clearCart();
-    }, 100);
   };
 
   if (isOrdered) {
@@ -44,7 +43,7 @@ const Checkout = () => {
         >
           <FiCheckCircle className="success-icon" />
           <h1>Order Confirmed!</h1>
-          <p>Thank you for your purchase. Your order ID is #LUXE-{Math.floor(Math.random() * 100000)}</p>
+          <p>Thank you for your purchase. Your order ID is #{orderId}</p>
           <p>We'll send a confirmation email shortly.</p>
           <button className="btn btn-primary bg-gradient-primary" onClick={() => navigate('/')}>
             Back to Home
